@@ -10,10 +10,10 @@ int main()
     FILE * fp1 = fopen("export.egx","r");//打开输入文件
 	if (fp1==NULL)
 	{
-		printf("不能打开文件!");
+		printf("can not open the file!");
 		exit(1);
 	}
-	printf("能打开文件!\n");
+	printf("can open the file!\n");
 	/*rewind(fp1);
 	fseek(fp1,100l,0);
 	fsconf(fp1,);
