@@ -13,7 +13,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	if((fp=fopen("e://test//f1.txt","r"))==0)
 	{
 		printf("文件不能正确打开！");
-		return(-1)
+		return(-1);
 	}
 	flag=fseek(fp,0,SEEK_END);
 	len=ftell(fp);
