@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	int len,i=0,n=0;//定义
+	char *str;//指针，指向任何内存区域
+	char lat[30];//定义字符长度
+	char lon[30];
+	char date[30];
+	char time[30];
+	FILE *fp,*fp1;//定义文件指针
+	fp=fopen("C:\\Users\\jszx\\Desktop\\export.gpx","r");//打开文件
+	fp1=fopen("gpx.csv","w");
+	if(fp==NULL)
+	{
+		printf("打开文件出错!");
+		return -1;
+	}
+	else
+	{
+	fseek(fp,SEEK_SET,SEEK_END);
+	 	len=ftell(fp);
+	fseek(fp,1,SEEK_SET);
+		str=(char *)malloc(len);//动态存储空间
+		fread(str,sizeof(char),len,fp);
+		str[len]='\0';
+	}
+	fprintf(fp1,"序号,经度,纬度,日期,时间\n");
+	while(!(str[i]=='<'&&str[i+1]=='/'&&str[i+2]=='g'&&str[i+3]=='p'&&str[i+4]=='x'&&str[i+5]=='>'))
+	{
+		if(str[i]==' '&&str[i+1]=='l'&&str[i+2]=='a'&&str[i+3]=='t')
+		{
+			strncpy(lat,&str[i+6],9);
+			strncpy(lon,&str[i+22],10);
+			strncpy(date,&str[i+44],10);
+			strncpy(time,&str[i+55],8);
+			lat[9]='\0';
+			lon[10]='\0';
+			date[10]='\0';
+			time[8]='\0';
+			printf("%s\t%s\t%s\t%s\n",lat,lon,date,time);
+			fprintf(fp1,"%d,%s,%s,%s,%s\n",n+1,lat,lon,date,time);
+			n++;
+		}
+		i++;
+	}
+	fclose(fp);	
+	fclose(fp1);	
+	return 0;
+}
